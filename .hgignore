@@ -1,0 +1,10 @@
+syntax: glob
+history/LameDuckRESTClient/build/classes/*
+history/LameDuckREST/build/web/WEB-INF/web.xml.orig
+history/LameDuckREST/web/WEB-INF/web.xml.orig
+LameDuckSoap/LameDuck/build/test/classes/*
+NiceViewTest/build/classes/*
+TravelGoodREST/build/web/WEB-INF/classes/ws/dtu/entity/BookingAndStatusEntity.class
+
+TravelGoodREST/TravelGoodRESTClient/build/test/results/TEST-ws.dtu.test.TestItineraryResource.xml.orig
+TravelGoodREST/TravelGoodREST/build/web/WEB-INF/classes/ws/dtu/resource/Itineraries.class.orig

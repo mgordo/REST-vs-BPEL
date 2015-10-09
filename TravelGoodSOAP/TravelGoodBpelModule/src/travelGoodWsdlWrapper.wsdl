@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="travelGoodWsdlWrapper" targetNamespace="http://enterprise.netbeans.org/bpel/travelGoodWsdlWrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/travelGoodWsdlWrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="http://travelGood.wsdl">
+    <import location="travelGoodWsdl.wsdl" namespace="http://travelGood.wsdl"/>
+    <import location="http://localhost:8080/NiceView/NiceViewService?wsdl" namespace="urn:NiceView"/>
+    <plnk:partnerLinkType name="travelGoodWsdlLinkType">
+        <plnk:role name="travelGoodWsdlRole" portType="ns:travelGoodWsdlPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

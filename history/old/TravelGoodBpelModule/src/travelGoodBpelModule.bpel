@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="travelGoodBpelModule"
+    targetNamespace="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://xml.netbeans.org/schema/AirlineSchema" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions">
+    <import namespace="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" location="file:/C:/Users/alin/Documents/Netbeans%20projects/travelGoodWsdl.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:LameDuck" location="http://localhost:8080/LameDuck/LameDuckService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PartnerLink2" xmlns:tns="urn:LameDuck" partnerLinkType="tns:partnerlinktype1" partnerRole="role1"/>
+        <partnerLink name="PartnerLink1" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" partnerLinkType="tns:TravelGoodWSDL" myRole="TravelGoodWSDLPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="GetFlightTravelGoodOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="tns:getFlightResponse"/>
+        <variable name="GetFlightsLameDuckOut" xmlns:tns="urn:LameDuck" messageType="tns:getFlightsResponse"/>
+        <variable name="GetFlightsLameDuckIn" xmlns:tns="urn:LameDuck" messageType="tns:getFlightsRequest"/>
+        <variable name="GetFlightTravelGoodIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="tns:getFlightRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveFlights" createInstance="yes" partnerLink="PartnerLink1" operation="getFlight" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" portType="tns:TravelGoodWSDLPortType" variable="GetFlightTravelGoodIn"/>
+        <assign name="AssignInput">
+            <copy>
+                <from variable="GetFlightTravelGoodIn" part="flightDate"/>
+                <to variable="GetFlightsLameDuckIn" part="date"/>
+            </copy>
+            <copy>
+                <from variable="GetFlightTravelGoodIn" part="flightStart"/>
+                <to variable="GetFlightsLameDuckIn" part="Source"/>
+            </copy>
+            <copy>
+                <from variable="GetFlightTravelGoodIn" part="flightDestination"/>
+                <to variable="GetFlightsLameDuckIn" part="destination"/>
+            </copy>
+        </assign>
+        <invoke name="InvokeGetFlightsLameDuck" partnerLink="PartnerLink2" operation="getFlights" xmlns:tns="urn:LameDuck" portType="tns:LameDuckPortType" inputVariable="GetFlightsLameDuckIn" outputVariable="GetFlightsLameDuckOut"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$GetFlightsLameDuckOut.flightList/ns0:flightInformation</from>
+                <to>$GetFlightsLameDuckOut.flightList/ns0:flightInformation</to>
+            </copy>
+        </assign>
+        <reply name="ReplyGetFlights" partnerLink="PartnerLink1" operation="getFlight" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" portType="tns:TravelGoodWSDLPortType" variable="GetFlightTravelGoodOut"/>
+    </sequence>
+</process>

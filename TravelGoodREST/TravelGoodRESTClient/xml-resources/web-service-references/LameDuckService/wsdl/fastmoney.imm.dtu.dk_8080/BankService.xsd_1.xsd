@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.3.1-hudson-417-SNAPSHOT. --><xs:schema xmlns:tns="urn://types.fastmoney.imm.dtu.dk" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="urn://types.fastmoney.imm.dtu.dk">
+
+<xs:element name="CreditCardFault" nillable="true" type="tns:CreditCardFaultType"></xs:element>
+
+<xs:element name="chargeCreditCard" nillable="true" type="tns:chargeCreditCard"></xs:element>
+
+<xs:element name="chargeCreditCardResponse" nillable="true" type="tns:chargeCreditCardResponse"></xs:element>
+
+<xs:element name="refundCreditCard" nillable="true" type="tns:refundCreditCard"></xs:element>
+
+<xs:element name="refundCreditCardResponse" nillable="true" type="tns:refundCreditCardResponse"></xs:element>
+
+<xs:element name="validateCreditCard" nillable="true" type="tns:validateCreditCard"></xs:element>
+
+<xs:element name="validateCreditCardResponse" nillable="true" type="tns:validateCreditCardResponse"></xs:element>
+
+<xs:complexType name="chargeCreditCard">
+<xs:sequence>
+<xs:element name="group" type="xs:int"></xs:element>
+<xs:element name="creditCardInfo" type="tns:creditCardInfoType"></xs:element>
+<xs:element name="amount" type="xs:int"></xs:element>
+<xs:element name="account" type="tns:accountType"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="creditCardInfoType">
+<xs:sequence>
+<xs:element name="expirationDate" type="tns:expirationDateType"></xs:element>
+<xs:element name="name" type="xs:string"></xs:element>
+<xs:element name="number" type="xs:string"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="expirationDateType">
+<xs:sequence>
+<xs:element name="month" type="xs:int"></xs:element>
+<xs:element name="year" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="accountType">
+<xs:sequence>
+<xs:element name="name" type="xs:string"></xs:element>
+<xs:element name="number" type="xs:string"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CreditCardFaultType">
+<xs:sequence>
+<xs:element name="message" type="xs:string"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="validateCreditCard">
+<xs:sequence>
+<xs:element name="group" type="xs:int"></xs:element>
+<xs:element name="creditCardInfo" type="tns:creditCardInfoType"></xs:element>
+<xs:element name="amount" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="validateCreditCardResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="chargeCreditCardResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="refundCreditCard">
+<xs:sequence>
+<xs:element name="group" type="xs:int"></xs:element>
+<xs:element name="creditCardInfo" type="tns:creditCardInfoType"></xs:element>
+<xs:element name="amount" type="xs:int"></xs:element>
+<xs:element name="account" type="tns:accountType"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="refundCreditCardResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

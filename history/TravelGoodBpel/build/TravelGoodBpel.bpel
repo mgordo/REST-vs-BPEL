@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="travelGoodBpel"
+    targetNamespace="http://enterprise.netbeans.org/bpel/TravelGoodBpel/travelGoodBpel"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGoodBpel/travelGoodBpel"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://xml.netbeans.org/schema/AirlineSchema" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" xmlns:ns1="urn:LameDuck">
+    <import namespace="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" location="TravelGoodWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:LameDuck" location="LameDuck/LameDuck.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PartnerLink2" partnerLinkType="ns1:partnerlinktype1" partnerRole="role1"/>
+        <partnerLink name="PartnerLink1" partnerLinkType="ns:TravelGoodWSDL" myRole="TravelGoodWSDLPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="GetFlightsOut" messageType="ns1:getFlightsResponse"/>
+        <variable name="GetFlightsIn" messageType="ns1:getFlightsRequest"/>
+        <variable name="GetFlightOut" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="ns:getFlightResponse"/>
+        <variable name="GetFlightIn" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="ns:getFlightRequest"/>
+        <variable name="CreateItineraryOut" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="ns:createItineraryResponse"/>
+        <variable name="CreateItineraryIn" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" messageType="ns:createItineraryRequest"/>       
+        <variable name="listFlightSize" type="xsd:int"/>
+        
+   
+    </variables>
+    <correlationSets>
+        <correlationSet name="CorrelationSet1" properties="ns:CustomerID ns:itinerary" />
+    </correlationSets>
+    <sequence>        
+        <receive name="ReceiveFromCreateItinary" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" portType="ns:TravelGoodWSDLPortType" variable="CreateItineraryIn">
+            <correlations>
+                <correlation set="CorrelationSet1" initiate="yes"/>
+            </correlations>
+        </receive>
+        <assign name="Assign1">
+             <copy>
+                  <from>0</from>
+                  <to variable="listFlightSize"/>
+             </copy>
+            <copy>
+                <from>true()</from>
+                <to variable="CreateItineraryOut" part="confirmation"/>
+            </copy>
+        </assign>
+        <reply name="ReplyCreateItinerary" partnerLink="PartnerLink1" operation="createItinerary" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" portType="ns:TravelGoodWSDLPortType" variable="CreateItineraryOut"/>
+        <repeatUntil name="RepeatUntil1">
+            <pick name="Pick1">
+                <onMessage partnerLink="PartnerLink1" operation="getFlight" xmlns:ns="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" portType="ns:TravelGoodWSDLPortType" variable="GetFlightIn">
+                    <correlations>
+                        <correlation set="CorrelationSet1" initiate="no"/>
+                    </correlations>
+                    <sequence name="Sequence1">
+                        <assign name="Assign3">
+                            <copy>
+                                    <from variable="GetFlightIn" part="flightStart"/>
+                                        <to variable="GetFlightsIn" part="Source"/>
+                                </copy>
+                                <copy>
+                                    <from variable="GetFlightIn" part="flightDestination"/>
+                                        <to variable="GetFlightsIn" part="destination"/>
+                                </copy>
+                                <copy>
+                                    <from variable="GetFlightIn" part="flightDate"/>
+                                        <to variable="GetFlightsIn" part="date"/>
+                                </copy>
+                        </assign>
+                        <invoke name="InvokeGetFlights" partnerLink="PartnerLink2" operation="getFlights" xmlns:tns="urn:LameDuck" portType="tns:LameDuckPortType" inputVariable="GetFlightsIn" outputVariable="GetFlightsOut"/>
+                        <assign name="Assign4">
+                            <copy>
+                                <from>$GetFlightsOut.flightList/ns0:flightInformation</from>
+                                <to>$GetFlightOut.flightList/ns0:flightInformation</to>
+                            </copy>
+                        </assign>
+                        <reply name="ReplyGetFlight" partnerLink="PartnerLink1" operation="getFlight" portType="ns:TravelGoodWSDLPortType" variable="GetFlightOut"/>
+                    </sequence>
+                </onMessage>
+            </pick>
+            <condition>true()</condition>
+        </repeatUntil>
+    </sequence>
+</process>

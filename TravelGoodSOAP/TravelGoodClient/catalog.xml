@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/alin/Documents/Netbeans%20projects/TravelGoodSOAP/TravelGoodBpelModule/src/travelGoodWsdlWrapper.wsdl" uri="xml-resources/web-service-references/travelGoodWsdlWrapper/wsdl/travelGoodWsdlWrapper.wsdl"/>
+    <system systemId="file:/C:/Users/alin/Documents/Netbeans%20projects/TravelGoodSOAP/TravelGoodBpelModule/src/travelGoodWsdl.wsdl" uri="xml-resources/web-service-references/travelGoodWsdl/wsdl/travelGoodWsdl.wsdl"/>
+    <system systemId="file:/C:/Users/Diego/Desktop/service.xml" uri="xml-resources/web-service-references/service/wsdl/service.xml.wsdl"/>
+    <system systemId="http://localhost:9080/service?wsdl" uri="xml-resources/web-service-references/service/wsdl/localhost_9080/service.wsdl"/>
+    <system systemId="http://localhost:8080/NiceView/NiceViewService?xsd=1" uri="xml-resources/web-service-references/service/wsdl/localhost_8080/NiceView/NiceViewService.xsd_1.xsd"/>
+    <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1" uri="xml-resources/web-service-references/service/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/LameDuck/LameDuckService?xsd=1" uri="xml-resources/web-service-references/service/wsdl/localhost_8080/LameDuck/LameDuckService.xsd_1.xsd"/>
+</catalog>

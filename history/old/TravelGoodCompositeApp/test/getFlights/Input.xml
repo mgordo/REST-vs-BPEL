@@ -1,0 +1,11 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:trav="http://TravelGood.ws">
+  <soapenv:Body>
+    <trav:getFlight>
+      <flightStart>CPH</flightStart>
+      <flightDestination>MAD</flightDestination>
+      <flightDate>19/12/2012</flightDate>
+      <customerID>1</customerID>
+      <itineraryID>1</itineraryID>
+    </trav:getFlight>
+  </soapenv:Body>
+</soapenv:Envelope>

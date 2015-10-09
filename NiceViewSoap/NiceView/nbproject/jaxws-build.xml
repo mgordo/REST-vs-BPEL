@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-BankService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BankService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BankService" destdir="${build.generated.dir}/jax-wsCache/BankService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl" xnocompile="true" xendorsed="true" package="bankpack" target="2.1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BankService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BankService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BankService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/bankpack"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/BankService"/>
+    </target>
+    <target name="wsimport-service-NiceView" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NiceView"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NiceView" destdir="${build.generated.dir}/jax-wsCache/service/NiceView" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NiceView/wsdl/NiceView.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true" xendorsed="true" target="2.1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NiceView/wsdl/NiceView.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NiceView"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NiceView">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NiceView">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NiceView/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NiceView" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/niceview"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NiceView"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-BankService"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-NiceView"/>
+</project>

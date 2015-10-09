@@ -1,0 +1,263 @@
+
+package org.netbeans.xml.schema.hotelschema;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
+/**
+ * <p>Classe Java pour Hotel complex type.
+ * 
+ * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * 
+ * <pre>
+ * &lt;complexType name="Hotel">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="booknumber" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ReservationService" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="guarantee" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="startperiod" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="endperiod" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Hotel", propOrder = {
+    "name",
+    "booknumber",
+    "city",
+    "reservationService",
+    "price",
+    "guarantee",
+    "address",
+    "startperiod",
+    "endperiod"
+})
+public class Hotel {
+
+    @XmlElement(required = true)
+    protected String name;
+    protected int booknumber;
+    @XmlElement(required = true)
+    protected String city;
+    @XmlElement(name = "ReservationService", required = true)
+    protected String reservationService;
+    protected double price;
+    protected boolean guarantee;
+    @XmlElement(required = true)
+    protected String address;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar startperiod;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar endperiod;
+
+    /**
+     * Obtient la valeur de la propriété name.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Définit la valeur de la propriété name.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété booknumber.
+     * 
+     */
+    public int getBooknumber() {
+        return booknumber;
+    }
+
+    /**
+     * Définit la valeur de la propriété booknumber.
+     * 
+     */
+    public void setBooknumber(int value) {
+        this.booknumber = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété city.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Définit la valeur de la propriété city.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCity(String value) {
+        this.city = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété reservationService.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getReservationService() {
+        return reservationService;
+    }
+
+    /**
+     * Définit la valeur de la propriété reservationService.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setReservationService(String value) {
+        this.reservationService = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété price.
+     * 
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * Définit la valeur de la propriété price.
+     * 
+     */
+    public void setPrice(double value) {
+        this.price = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété guarantee.
+     * 
+     */
+    public boolean isGuarantee() {
+        return guarantee;
+    }
+
+    /**
+     * Définit la valeur de la propriété guarantee.
+     * 
+     */
+    public void setGuarantee(boolean value) {
+        this.guarantee = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété address.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * Définit la valeur de la propriété address.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAddress(String value) {
+        this.address = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété startperiod.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getStartperiod() {
+        return startperiod;
+    }
+
+    /**
+     * Définit la valeur de la propriété startperiod.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setStartperiod(XMLGregorianCalendar value) {
+        this.startperiod = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété endperiod.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getEndperiod() {
+        return endperiod;
+    }
+
+    /**
+     * Définit la valeur de la propriété endperiod.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setEndperiod(XMLGregorianCalendar value) {
+        this.endperiod = value;
+    }
+
+}

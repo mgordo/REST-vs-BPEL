@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule" xmlns:ns2="urn:LameDuck" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+    <service-assembly>
+        <identification>
+            <name>TravelGoodCompositeApp</name>
+            <description>Represents the Service Assembly of TravelGoodCompositeApp</description>
+        </identification>
+        <service-unit>
+            <identification>
+                <name>TravelGoodCompositeApp-TravelGoodBpelModule</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>TravelGoodBpelModule.jar</artifacts-zip>
+                <component-name>sun-bpel-engine</component-name>
+            </target>
+        </service-unit>
+        <service-unit>
+            <identification>
+                <name>TravelGoodCompositeApp-sun-http-binding</name>
+                <description>Represents this Service Unit</description>
+            </identification>
+            <target>
+                <artifacts-zip>sun-http-binding.jar</artifacts-zip>
+                <component-name>sun-http-binding</component-name>
+            </target>
+        </service-unit>
+        <connections>
+            <connection>
+                <consumer endpoint-name="role1_partnerRole" service-name="ns1:PartnerLink2"/>
+                <provider endpoint-name="LameDuckPortTypeBindingPort" service-name="ns2:LameDuckService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="port" service-name="ns3:TravelGoodWSDLService"/>
+                <provider endpoint-name="TravelGoodWSDLPortTypeRole_myRole" service-name="ns1:PartnerLink1"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

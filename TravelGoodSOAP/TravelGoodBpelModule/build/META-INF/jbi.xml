@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns0="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule" xmlns:ns1="http://travelGood.wsdl" xmlns:ns2="urn:LameDuck" xmlns:ns3="urn:NiceView" xmlns:ns4="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" xmlns:ns5="http://www.sun.com/jbi/descriptor/service-unit" version="1.0">
+    <services binding-component="false">
+        <provides endpoint-name="travelGoodWsdlRole_myRole" interface-name="ns1:travelGoodWsdlPortType" service-name="ns0:PartnerLinkTG">
+            <ns5:display-name>PartnerLinkTG</ns5:display-name>
+            <ns5:process-name>travelGoodBpelModule</ns5:process-name>
+            <ns5:file-path>travelGoodBpelModule.bpel</ns5:file-path>
+        </provides>
+        <consumes endpoint-name="role1_partnerRole" interface-name="ns2:LameDuckPortType" service-name="ns0:PartnerLinkLameDuck">
+            <ns5:display-name>PartnerLinkLameDuck</ns5:display-name>
+            <ns5:process-name>travelGoodBpelModule</ns5:process-name>
+            <ns5:file-path>travelGoodBpelModule.bpel</ns5:file-path>
+        </consumes>
+        <consumes endpoint-name="NiceViewPortTypeRole_partnerRole" interface-name="ns3:NiceViewPortType" service-name="ns0:PartnerLinkNiceView">
+            <ns5:display-name>PartnerLinkNiceView</ns5:display-name>
+            <ns5:process-name>travelGoodBpelModule</ns5:process-name>
+            <ns5:file-path>travelGoodBpelModule.bpel</ns5:file-path>
+        </consumes>
+        <consumes endpoint-name="DateCalculatorPortTypeRole_partnerRole" interface-name="ns4:DateCalculatorPortType" service-name="ns0:PartnerLinkCalculatorDate">
+            <ns5:display-name>PartnerLinkCalculatorDate</ns5:display-name>
+            <ns5:process-name>travelGoodBpelModule</ns5:process-name>
+            <ns5:file-path>travelGoodBpelModule.bpel</ns5:file-path>
+        </consumes>
+    </services>
+</jbi>

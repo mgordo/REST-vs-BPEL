@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="DateCalculator" targetNamespace="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <types/>
+    <message name="DateCalculatorOperationRequest">
+        <part name="part1" type="xsd:date"/>
+    </message>
+    <message name="DateCalculatorOperationResponse">
+        <part name="outdate" type="xsd:duration"/>
+    </message>
+    <message name="getBigDateRequest">
+        <part name="foo" type="xsd:boolean"/>
+    </message>
+    <message name="getBigDateResponse">
+        <part name="res" type="xsd:date"/>
+    </message>
+    <portType name="DateCalculatorPortType">
+        <operation name="DateCalculatorOperation">
+            <input name="input1" message="tns:DateCalculatorOperationRequest"/>
+            <output name="output1" message="tns:DateCalculatorOperationResponse"/>
+        </operation>
+        <operation name="DateCalculatorGetBigDateOperation">
+            <input name="input2" message="tns:getBigDateRequest"/>
+            <output name="output2" message="tns:getBigDateResponse"/>
+        </operation>
+    </portType>
+    <binding name="DateCalculatorPortTypeBinding" type="tns:DateCalculatorPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="DateCalculatorOperation">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal" namespace="http://hola"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal" namespace="http://hola"/>
+            </output>
+        </operation>
+        <operation name="DateCalculatorGetBigDateOperation">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body  use="literal" namespace="http://hola"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal" namespace="http://hola"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="DateCalculatorService">
+        <port name="DateCalculatorPortTypeService" binding="tns:DateCalculatorPortTypeBinding">
+            <soap:address location="http://localhost:8080/DateCalculator/DateCalculatorService"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="DateCalculator">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="DateCalculatorPortTypeRole" portType="tns:DateCalculatorPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

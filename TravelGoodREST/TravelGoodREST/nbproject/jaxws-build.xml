@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-LameDuckService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LameDuckService" destdir="${build.generated.dir}/jax-wsCache/LameDuckService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/LameDuckService/wsdl/localhost_8080/LameDuck/LameDuckService.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/LameDuck/LameDuckService?wsdl" xnocompile="true" xendorsed="true" package="ws.dtu.client" target="2.1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/LameDuckService/wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuckService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-LameDuckService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/dtu/client"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+    </target>
+    <target name="wsimport-client-NiceViewService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NiceViewService" destdir="${build.generated.dir}/jax-wsCache/NiceViewService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NiceViewService/wsdl/localhost_8080/NiceView/NiceViewService.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/NiceView/NiceViewService?wsdl" xnocompile="true" xendorsed="true" target="2.1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NiceViewService/wsdl/localhost_8080/NiceView/NiceViewService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NiceViewService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NiceViewService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/niceview"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-LameDuckService, wsimport-client-NiceViewService"/>
+</project>

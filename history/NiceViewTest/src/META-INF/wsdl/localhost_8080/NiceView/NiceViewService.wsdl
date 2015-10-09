@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.1.1 (branches/2.1-6844; 2011-07-29T12:07:24+0000) JAXWS-RI/2.2.5 JAXWS/2.2. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:NiceView" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns0="http://xml.netbeans.org/schema/hotelschema" name="NiceView" targetNamespace="urn:NiceView">
+    <types>
+        <xsd:schema targetNamespace="urn:NiceView">
+            <xsd:import namespace="http://xml.netbeans.org/schema/hotelschema" schemaLocation="http://localhost:8080/NiceView/NiceViewService?xsd=1"/>
+        </xsd:schema>
+    </types>
+    <message name="getRequest">
+        <part name="part1" element="ns0:getelement"/>
+    </message>
+    <message name="getResponse">
+        <part name="part1" element="ns0:hotellistelement"/>
+    </message>
+    <message name="bookRequest">
+        <part name="part1" element="ns0:bookargelement"/>
+    </message>
+    <message name="bookResponse">
+        <part name="part1" element="ns0:bookreply"/>
+    </message>
+    <message name="bookfault">
+        <part name="part1" element="ns0:stringfault"/>
+    </message>
+    <message name="cancelRequest">
+        <part name="part1" element="ns0:cancelreq"/>
+    </message>
+    
+    <message name="cancelResponse">
+        <part name="part1" element="ns0:bookreply"/>
+    </message>
+    <message name="cancelFault">
+        <part name="part1" element="ns0:stringfault"/>
+    </message>
+    
+    <portType name="NiceViewPortType">
+        <operation name="getHotel">
+            <input name="input1" message="tns:getRequest"/>
+            <output name="output1" message="tns:getResponse"/>
+        </operation>
+        <operation name="bookHotel">
+            <input name="input2" message="tns:bookRequest"/>
+            <output name="output2" message="tns:bookResponse"/>
+            <fault name="fault1" message="tns:bookfault"/>
+        </operation>
+        <operation name="cancelHotel">
+            <input name="input3" message="tns:cancelRequest"/>
+            <output name="output3" message="tns:cancelResponse"/>
+            <fault name="fault1" message="tns:cancelFault"/>
+        </operation>
+    </portType>
+    <binding name="NiceViewPortTypeBinding" type="tns:NiceViewPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getHotel">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </output>
+        </operation>
+        <operation name="bookHotel">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="cancelHotel">
+            <soap:operation/>
+            <input name="input3">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </input>
+            <output name="output3">
+                <soap:body use="literal" namespace="http://mumble"/>
+            </output>
+            <fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="NiceViewService">
+        <port name="NiceViewPortTypeBindingPort" binding="tns:NiceViewPortTypeBinding">
+            <soap:address location="http://localhost:8080/NiceView/NiceViewService"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="NiceView">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NiceViewPortTypeRole" portType="tns:NiceViewPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

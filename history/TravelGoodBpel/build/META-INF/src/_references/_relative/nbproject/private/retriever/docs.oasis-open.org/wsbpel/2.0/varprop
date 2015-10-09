@@ -1,0 +1,423 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:rddl="http://www.rddl.org/"
+         xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+  <head>
+    <title>OASIS Web Services Business Process Execution Language (WS-BPEL) 2.0</title>
+    <link href="http://www.rddl.org/xrd.css" type="text/css" rel="stylesheet" />
+    <style type="text/css" media="all">
+<!--
+  div.resource {
+    clear: both;
+  }
+  div.resource ul {
+    list-style: none;
+  }
+  div.resource dt {
+	padding-bottom: 0;
+  }
+  div.resource dd {
+    position: relative;
+    top: -16px;
+    left: 5em;
+  }
+  div.resource {
+    padding-bottom: 0;
+    padding-left: 1em;
+  }
+  div#content {
+	margin: 5em;
+	margin-top: 0;
+  }
+  .title {
+  }
+
+img.spacer{display:block;}
+img.producticon,img.production{border:none;}
+body {
+  font:400 10pt arial,sans-serif;
+  color:#000;
+  background:#fff;
+  margin: 0;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+-->
+    </style>
+  </head>
+
+  <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+
+    <div id="content">
+      <h1>Web Services Business Process Execution Language (WS-BPEL)</h1>
+      <p>11 April  2007 </p>
+
+      <h2>Introduction</h2>
+      <p>This document describes resources related to version 2.0 of the
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+href="http://docs.oasis-open.org/wsbpel/2.0">WS-BPEL</a> specification
+        (OASIS Standard), including the principal prose
+document, XML schemas, and five XML namespaces. It also contains a directory of links to related resources using the
+        <a href="http://www.openhealth.org/RDDL/20040118/rddl-20040118.html">Resource Directory Description Language (RDDL) 2.0</a>.
+WS-BPEL version 2.0 has been produced by members of the <a
+        href="http://www.oasis-open.org/committees/wsbpel/">OASIS Web
+Services Business Process Execution Language (WSBPEL) TC</a>.</p>
+
+      <h2>Namespace URI Versioning Policy</h2>
+      <p>It is the intent of the OASIS WS-BPEL Technical Committee that the WS-BPEL v2.0 namespace URIs will not
+change arbitrarily with each subsequent revision of the corresponding WSDL or XML Schema documents but rather change only when a subsequent revision, published in conjunction with a Committee Specification, results in non-backwardly compatible changes from a previously published Committee Specification.</p>
+
+      <p>Under this policy, the following are examples of backwards compatible changes that would not result in
+assignment of new namespace URIs:
+  <ul>
+          <li>addition of new global element, attribute, complexType and simpleType definitions</li>
+          <li>addition of new operations within a WSDL portType or binding (along with the corresponding schema, message and part definitions)</li>
+          <li>addition of new elements or attributes in locations covered by a previously specified wildcard</li>
+          <li>modifications to the pattern facet of a type definition for which the value-space of the previous definition remains valid or for which the value-space of the preponderance of instance would remain valid</li>
+          <li>modifications to the cardinality of elements for which the value-space of possible instance documents conformant to the previous revision of the schema would still be valid with regards to the revised cardinality rule</li>
+  </ul>
+      </p>
+
+      <h2>Related Resources for WS-BPEL v2.0</h2>
+
+      <h3>Normative Reference:</h3>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.isi.edu/in-notes/iana/assignments/media-types/pdf" rddl:purpose="http://www.rddl.org/purposes#normative reference"
+        href="http://docs.oasis-open.org/wsbpel/2.0/wsbpel-v2.0.pdf">WS-BPEL v2.0</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">OASIS Web Services Business Process Execution Language (WSBPEL) v2.0</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April 2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt>
+          <dd class="artifacttype">specification</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard  </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">00</dd>
+           <dt>This version:</dt> <dd class="thisversion">
+             <p><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/wsbpel-v2.0-OS.pdf">http://docs.oasis-open.org/wsbpel/2.0/OS/wsbpel-v2.0-OS.pdf</a></p>
+             </dd>
+          <dt>Previous version:</dt> <dd class="previousversion">
+            <p><a
+href="http://docs.oasis-open.org/wsbpel/2.0/CS01/wsbpel-v2.0-CS01.pdf">http://docs.oasis-open.org/wsbpel/2.0/CS01/wsbpel-v2.0-CS01.pdf</a></p>
+            </dd>
+         <dt>Language:</dt><dd class="lang">en-us</dd>
+          <dt>Editors:</dt><dd class="editors">
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Additional Formats:</dt>
+          <dd class="formats">
+            <ul>
+              <li><a href="http://docs.oasis-open.org/wsbpel/2.0/OS/wsbpel-v2.0-OS.html">XHTML</a></li>
+              <li><a href="http://docs.oasis-open.org/wsbpel/2.0/OS/wsbpel-v2.0-OS.doc">Microsoft Word
+97-2003</a></li>
+            </ul>
+          </dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments archive</a></dd>
+        </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+
+      <h3>XML Schemas for WS-BPEL v2.0, Committee Specification 01:</h3>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.w3.org/2001/XMLSchema"
+rddl:purpose="http://www.rddl.org/purposes#schema-validation" href="http://docs.oasis-open.org/wsbpel/2.0/OS/process/abstract/ws-bpel_abstract_common_base.xsd">ws-bpel_abstract_common_base.xsd</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">Schema for OASIS Business Process Execution Language (WS-BPEL) 2.0 - Abstract BPEL Common Base</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April  2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt><dd class="artifacttype">schema</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">00</dd>
+          <dt>This version:</dt>
+          <dd class="thisversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/process/abstract/ws-bpel_abstract_common_base.xsd">http://docs.oasis-open.org/wsbpel/2.0/OS/process/abstract/ws-bpel_abstract_common_base.xsd</a></dd>
+          <dt>Previous version:</dt>
+          <dd class="previousversion"><a href="http://docs.oasis-open.org/wsbpel/2.0/CS01/process/abstract/ws-bpel_abstract_common_base.xsd">http://docs.oasis-open.org/wsbpel/2.0/CS01/process/abstract/ws-bpel_abstract_common_base.xsd</a></dd>
+          <dt>Editors:</dt><dd class="editors">
+            
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments Archive</a></dd>
+       </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.w3.org/2001/XMLSchema"
+rddl:purpose="http://www.rddl.org/purposes#schema-validation" href="http://docs.oasis-open.org/wsbpel/2.0/OS/process/executable/ws-bpel_executable.xsd">ws-bpel_executable.xsd</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">Schema for OASIS Business Process Execution Language (WS-BPEL) 2.0 - Schema for Executable Processes</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April  2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt><dd class="artifacttype">schema</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">0</dd>
+           <dt>This version:</dt>
+           <dd class="thisversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/process/executable/ws-bpel_executable.xsd">http://docs.oasis-open.org/wsbpel/2.0/OS/process/executable/ws-bpel_executable.xsd</a></dd>
+          <dt>Previous version:</dt>
+          <dd class="previousversion"><a href="http://docs.oasis-open.org/wsbpel/2.0/CS01/process/executable/ws-bpel_executable.xsd">http://docs.oasis-open.org/wsbpel/2.0/CS01/process/executable/ws-bpel_executable.xsd</a></dd>
+         <dt>Editors:</dt><dd class="editors">
+       
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments Archive</a></dd>
+        </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.w3.org/2001/XMLSchema"
+rddl:purpose="http://www.rddl.org/purposes#schema-validation" href="http://docs.oasis-open.org/wsbpel/2.0/OS/plnktype/ws-bpel_plnktype.xsd">ws-bpel_plnktype.xsd</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">Schema for OASIS Business Process Execution Language (WS-BPEL) 2.0 - Schema for Partner Link Type</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April  2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt><dd class="artifacttype">schema</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard  </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">00</dd>
+           <dt>This version:</dt>
+           <dd class="thisversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/plnktype/ws-bpel_plnktype.xsd">http://docs.oasis-open.org/wsbpel/2.0/OS/plnktype/ws-bpel_plnktype.xsd</a></dd>
+          <dt>Previous version:</dt>
+          <dd class="previousversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/CS01/plnktype/ws-bpel_plnktype.xsd">http://docs.oasis-open.org/wsbpel/2.0/CS01/plnktype/ws-bpel_plnktype.xsd</a></dd>
+         <dt>Editors:</dt><dd class="editors">
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments Archive</a></dd>
+        </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.w3.org/2001/XMLSchema"
+rddl:purpose="http://www.rddl.org/purposes#schema-validation" href="http://docs.oasis-open.org/wsbpel/2.0/OS/serviceref/ws-bpel_serviceref.xsd">ws-bpel_serviceref.xsd</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">Schema for OASIS Business Process Execution Language (WS-BPEL) 2.0 - Schema for Service Reference</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April  2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt><dd class="artifacttype">schema</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">01</dd>
+          <dt>This version:</dt>
+          <dd class="thisversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/serviceref/ws-bpel_serviceref.xsd">http://docs.oasis-open.org/wsbpel/2.0/OS/serviceref/ws-bpel_serviceref.xsd</a></dd>
+          <dt>Previous version:</dt>
+          <dd class="previousversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/CS01/serviceref/ws-bpel_serviceref.xsd">http://docs.oasis-open.org/wsbpel/2.0/CS01/serviceref/ws-bpel_serviceref.xsd</a></dd>
+         <dt>Editors:</dt><dd class="editors">
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments Archive</a></dd>
+        </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+      <div class="resource">
+        <h4>
+          <a rddl:nature="http://www.w3.org/2001/XMLSchema"
+rddl:purpose="http://www.rddl.org/purposes#schema-validation" href="http://docs.oasis-open.org/wsbpel/2.0/OS/varprop/ws-bpel_varprop.xsd">ws-bpel_varprop.xsd</a>
+        </h4>
+        <dl class="oasis-metadata">
+          <dt>Title:</dt><dd class="title">Schema for OASIS Business Process Execution Language (WS-BPEL) 2.0 - Schema for Variable Properties</dd>
+          <dt>Product:</dt><dd class="product">wsbpel</dd>
+          <dt>Date:</dt>
+          <dd class="date">11 April  2007 </dd>
+          <dt>ProductVersion:</dt><dd class="productversion">2.0</dd>
+          <dt>ArtifactType:</dt><dd class="artifacttype">schema</dd>
+          <dt>Stage:</dt>
+          <dd class="stage">OASIS Standard </dd>
+          <dt>Revision:</dt>
+          <dd class="revision">00</dd>
+          <dt>This version:</dt>
+          <dd class="thisversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/OS/varprop/ws-bpel_varprop.xsd">http://docs.oasis-open.org/wsbpel/2.0/OS/varprop/ws-bpel_varprop.xsd</a></dd>
+          <dt>Previous version:</dt>
+          <dd class="previousversion"><a
+href="http://docs.oasis-open.org/wsbpel/2.0/CS01/varprop/ws-bpel_varprop.xsd">http://docs.oasis-open.org/wsbpel/2.0/CS01/varprop/ws-bpel_varprop.xsd</a></dd>
+          <dt>Editors:</dt><dd class="editors">
+<ul>
+<li>Alexandre Alves, <span class="affiliation">BEA</span></li>
+<li>Assaf Arkin, <span class="affiliation">Intalio</span></li>
+<li>Sid Askary, <span class="affiliation">Individual</span></li>
+<li>Charlton Barreto, <span class="affiliation">Adobe Systems</span></li>
+<li>Ben Bloch, <span class="affiliation">Systinet</span></li>
+<li>Francisco Curbera, <span class="affiliation">IBM</span></li>
+<li>Mark Ford, <span class="affiliation">Active Endpoints, Inc.</span></li>
+<li>Yaron Goland, <span class="affiliation">BEA</span></li>
+<li>Alejandro Gu&iacute;zar, <span class="affiliation">JBoss, Inc.</span></li>
+<li>Neelakantan Kartha, <span class="affiliation">Sterling Commerce</span></li>
+<li>Canyang Kevin Liu, <span class="affiliation">SAP</span></li>
+<li>Rania Khalaf, <span class="affiliation">IBM</span></li>
+<li>Dieter K&ouml;nig, <span class="affiliation">IBM</span></li>
+<li>Mike Marin, <span class="affiliation">IBM, formerly FileNet Corporation</span></li>
+<li>Vinkesh Mehta, <span class="affiliation">Deloitte</span></li>
+<li>Satish Thatte, <span class="affiliation">Microsoft</span></li>
+<li>Danny van der Rijn, <span class="affiliation">TIBCO Software</span></li>
+<li>Prasad Yendluri, <span class="affiliation">webMethods</span></li>
+<li>Alex Yiu, <span class="affiliation">Oracle</span></li>
+</ul></dd>
+          <dt>Comments list:</dt><dd class="comments-list"><a rel="comments-uri" href="http://www.oasis-open.org/committees/comments/index.php?wg_abbrev=wsbpel">Submit comments</a></dd>
+          <dt>Archive:</dt><dd class="comments-archive"><a rel="comments-uri" href="http://lists.oasis-open.org/archives/wsbpel-comment/">Comments Archive</a></dd>
+        </dl>
+        <!-- End of .oasis-metadata -->
+      </div>
+      <h2>WS-BPEL v2.0 Namespaces</h2>
+      <ul>
+      <li>Abstract Process for WS-BPEL v2.0 namespace:
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+      href="http://docs.oasis-open.org/wsbpel/2.0/process/abstract">http://docs.oasis-open.org/wsbpel/2.0/process/abstract</a>
+      </li>
+      <li>
+      Executable Process for WS-BPEL v2.0 namespace:
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+      href="http://docs.oasis-open.org/wsbpel/2.0/process/executable">http://docs.oasis-open.org/wsbpel/2.0/process/executable</a>
+      </li>
+      <li>
+      Partner Link Type for WS-BPEL v2.0 namespace:
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+      href="http://docs.oasis-open.org/wsbpel/2.0/plnktype">http://docs.oasis-open.org/wsbpel/2.0/plnktype</a>
+      </li>
+      <li>
+      Service Reference for WS-BPEL v2.0 namespace:
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+      href="http://docs.oasis-open.org/wsbpel/2.0/serviceref">http://docs.oasis-open.org/wsbpel/2.0/serviceref</a>
+      </li>
+      <li>
+      Variable Properties for WS-BPEL v2.0 namespace:
+        <a rddl:nature="http://www.rddl.org/" rddl:purpose="http://www.rddl.org/purposes#directory"
+      href="http://docs.oasis-open.org/wsbpel/2.0/varprop">http://docs.oasis-open.org/wsbpel/2.0/varprop</a>
+      </li>
+</body>
+
+</html>

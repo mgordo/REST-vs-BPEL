@@ -1,0 +1,128 @@
+
+package dk.dtu.imm.fastmoney.types;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Classe Java pour chargeCreditCard complex type.
+ * 
+ * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * 
+ * <pre>
+ * &lt;complexType name="chargeCreditCard">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="group" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="creditCardInfo" type="{urn://types.fastmoney.imm.dtu.dk}creditCardInfoType"/>
+ *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="account" type="{urn://types.fastmoney.imm.dtu.dk}accountType"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "chargeCreditCard", propOrder = {
+    "group",
+    "creditCardInfo",
+    "amount",
+    "account"
+})
+public class ChargeCreditCard {
+
+    protected int group;
+    @XmlElement(required = true)
+    protected CreditCardInfoType creditCardInfo;
+    protected int amount;
+    @XmlElement(required = true)
+    protected AccountType account;
+
+    /**
+     * Obtient la valeur de la propriété group.
+     * 
+     */
+    public int getGroup() {
+        return group;
+    }
+
+    /**
+     * Définit la valeur de la propriété group.
+     * 
+     */
+    public void setGroup(int value) {
+        this.group = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété creditCardInfo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link CreditCardInfoType }
+     *     
+     */
+    public CreditCardInfoType getCreditCardInfo() {
+        return creditCardInfo;
+    }
+
+    /**
+     * Définit la valeur de la propriété creditCardInfo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link CreditCardInfoType }
+     *     
+     */
+    public void setCreditCardInfo(CreditCardInfoType value) {
+        this.creditCardInfo = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété amount.
+     * 
+     */
+    public int getAmount() {
+        return amount;
+    }
+
+    /**
+     * Définit la valeur de la propriété amount.
+     * 
+     */
+    public void setAmount(int value) {
+        this.amount = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété account.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AccountType }
+     *     
+     */
+    public AccountType getAccount() {
+        return account;
+    }
+
+    /**
+     * Définit la valeur de la propriété account.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AccountType }
+     *     
+     */
+    public void setAccount(AccountType value) {
+        this.account = value;
+    }
+
+}

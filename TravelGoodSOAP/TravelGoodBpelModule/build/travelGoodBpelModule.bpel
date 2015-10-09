@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="travelGoodBpelModule"
+    targetNamespace="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" 
+    xmlns:ns0="http://xml.netbeans.org/schema/AirlineSchema" 
+    xmlns:ns1="http://xml.netbeans.org/schema/hotelschema" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" 
+    xmlns:ns2="http://travelGood.wsdl" xmlns:ns3="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="urn:NiceView">
+    <import namespace="http://enterprise.netbeans.org/bpel/travelGoodWsdlWrapper" 
+            location="travelGoodWsdlWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://travelGood.wsdl" 
+            location="travelGoodWsdl.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:LameDuck" 
+            location="http://localhost:8080/LameDuck/LameDuckService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:NiceView" 
+            location="http://localhost:8080/NiceView/NiceViewService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" location="http://localhost:8080/DateCalculator/DateCalculatorService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PartnerLinkTG" xmlns:tns="http://enterprise.netbeans.org/bpel/travelGoodWsdlWrapper" 
+                     partnerLinkType="tns:travelGoodWsdlLinkType" myRole="travelGoodWsdlRole"/>
+        <partnerLink name="PartnerLinkLameDuck" xmlns:tns="urn:LameDuck" 
+                     partnerLinkType="tns:partnerlinktype1" 
+                     partnerRole="role1"/>
+        <partnerLink name="PartnerLinkNiceView" 
+                     xmlns:tns="urn:NiceView" 
+                     partnerLinkType="tns:NiceView" 
+                     partnerRole="NiceViewPortTypeRole"/>
+        
+<partnerLink name="PartnerLinkCalculatorDate" 
+        xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" 
+        partnerLinkType="tns:DateCalculator" 
+        partnerRole="DateCalculatorPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="DateCalculatorOperationOut1" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" messageType="tns:DateCalculatorOperationResponse"/>
+        <variable name="DateCalculatorOperationIn1" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" messageType="tns:DateCalculatorOperationRequest"/>
+        <variable name="DateCalculatorGetBigDateOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" messageType="tns:getBigDateResponse"/>
+        <variable name="DateCalculatorGetBigDateOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" messageType="tns:getBigDateRequest"/>
+        <variable name="GetItineraryOperationOutcancel" messageType="ns2:getItineraryOperationResponse"/>
+        
+        <variable name="Fault8FaultVar1" messageType="ns2:cancelItineraryFault"/>
+        <variable name="Fault8FaultVar" messageType="ns2:cancelItineraryFault"/>
+        <variable name="errorCanceling" type="xsd:boolean"/>
+        <variable name="CancelItineraryOperationIn" messageType="ns2:cancelItineraryRequest"/>
+        <variable name="finishProcess" type="xsd:boolean"/>
+        <variable name="GetItineraryOperationIncancel" messageType="ns2:getItineraryOperationRequest"/>
+        <variable name="CancelItineraryOperationOut" messageType="ns2:cancelItineraryResponse"/>
+            
+        <variable name="AddHotelTravelGoodlOperationOut" messageType="ns2:addHotelTravelGoodResponse"/>
+        <variable name="AddHotelTravelGoodlOperationIn" messageType="ns2:addHotelTravelGoodRequest"/>
+        <variable name="GetItineraryOperationOut" messageType="ns2:getItineraryOperationResponse"/>
+        <variable name="GetItineraryOperationIn" messageType="ns2:getItineraryOperationRequest"/>
+        <variable name="NumberOfFlights" type="xs:int"/>
+        <variable name="NumberOfHotels" type="xs:int"/>
+        <variable name="Itinerary" type="ns2:itineraryComplexType">
+            <sxed:editor>
+                <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                <sxed:predicate path="$Itinerary/hotelList[$ForEach1Counter]" source="from"/>
+                <sxed:predicate path="$Itinerary/hotelList[$NumberOfHotels]" source="to"/>
+                <sxed:predicate path="$Itinerary/hotelList[$ForEach1Counter]" source="from"/>
+                <sxed:predicate path="$Itinerary/flightList[$ForEach1Counter]" source="to"/>
+            </sxed:editor>
+        </variable> 
+        <variable name="BookItineraryTravelGoodOperationOut" messageType="ns2:bookItineraryTravelGoodResponse"/>
+        <variable name="BookItineraryTravelGoodOperationIn" messageType="ns2:bookItineraryTravelGoodRequest"/>
+        <variable name="AddFlightTravelGoodOperationIn" messageType="ns2:addFlightTravelGoodRequest"/>
+        <variable name="AddFlightTravelGoodOperationOut" messageType="ns2:addFlightTravelGoodResponse">
+            <sxed:editor>
+                <sxed:predicate path="$AddFlightTravelGoodOperationOut.addFlightOutput/itinerary/flightList[$NumberOfFlights]" source="to"/>
+            </sxed:editor>
+        </variable>
+        <variable name="CreateItineraryTravelGoodOperationOut" messageType="ns2:createItineraryResponse"/>
+        <variable name="CreateItineraryTravelGoodOperationIn" messageType="ns2:createItineraryRequest"/>
+        <variable name="FaultGetHotel" xmlns:tns="http://travelGood.wsdl" messageType="tns:getHotelTravelGoodOperationFault"/>
+        <variable name="FaultGetFlight" xmlns:tns="http://travelGood.wsdl" messageType="tns:getFlightTravelGoodOperationFault"/>
+        <variable name="GetHotelOut" xmlns:tns="urn:NiceView" messageType="tns:getResponse"/>
+        <variable name="GetHotelIn" xmlns:tns="urn:NiceView" messageType="tns:getRequest"/>
+        <variable name="GetHotelTravelGoodOperationOut" xmlns:tns="http://travelGood.wsdl" messageType="tns:getHotelTravelGoodOperationResponse"/>
+        <variable name="GetHotelTravelGoodOperationIn" xmlns:tns="http://travelGood.wsdl" messageType="tns:getHotelTravelGoodOperationRequest"/>
+        <variable name="GetFlightTravelGoodOperationOut" xmlns:tns="http://travelGood.wsdl" messageType="tns:getFlightTravelGoodOperationResponse"/>
+        <variable name="GetFlightsLameDuckOut" xmlns:tns="urn:LameDuck" messageType="tns:getFlightsResponse"/>
+        <variable name="GetFlightsLameDuckIn" xmlns:tns="urn:LameDuck" messageType="tns:getFlightsRequest"/>
+        <variable name="GetFlightTravelGoodOperationIn" xmlns:tns="http://travelGood.wsdl" messageType="tns:getFlightTravelGoodOperationRequest"/>
+    </variables>
+    <correlationSets>
+        <correlationSet name="ItineraryCorrelation" properties="ns2:itineraryID"/>
+    </correlationSets>
+    <sequence>
+     
+        <receive name="ReceiveCreateItinerary" 
+                 createInstance="yes" 
+                 partnerLink="PartnerLinkTG" 
+                 operation="createItineraryTravelGoodOperation" 
+                 xmlns:tns="http://travelGood.wsdl" 
+                 portType="tns:travelGoodWsdlPortType" 
+                 variable="CreateItineraryTravelGoodOperationIn">
+        </receive>
+        <assign name="AssignCreateIT">
+            <copy>
+                <from>0</from>
+                <to variable="NumberOfFlights"/>
+            </copy>
+            <copy>
+                <from>sxxf:getGUID()</from>
+                <to>$CreateItineraryTravelGoodOperationOut.createItineraryOutput/itineraryID</to>
+            </copy>
+            <copy>
+                <from>$CreateItineraryTravelGoodOperationIn.createItineraryInput/customerID</from>
+                <to>$CreateItineraryTravelGoodOperationOut.createItineraryOutput/customerID</to>
+            </copy>
+
+            <copy>
+                <from>0</from>
+                <to variable="NumberOfHotels"/>
+            </copy>
+                 <!--
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList/flightStatus</to>
+            </copy>
+             
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/hotelList/hotelStatus</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList/Flight/ns0:StartAirport</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList/Flight/ns0:DestinationAirport</to>
+            </copy>
+            
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/flightList/Flight/ns0:liftOffDate</to>
+            </copy>
+            <copy>
+                <from>sxxf:current-time()</from>
+                <to>$Itinerary/flightList/Flight/ns0:liftOffTime</to>
+            </copy>
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/flightList/Flight/ns0:landingDate</to>
+            </copy>
+            <copy>
+                <from>sxxf:current-time()</from>
+                <to>$Itinerary/flightList/Flight/ns0:landingTimetim</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList/Flight/ns0:carrier</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList/airline</to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/flightList/price</to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/flightList/bookingNumber</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/hotelList/ns1:name</to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/hotelList/ns1:booknumber</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/hotelList/ns1:city</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/hotelList/ns1:ReservationService</to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/hotelList/ns1:price</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/hotelList/ns1:address</to>
+            </copy>
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/hotelList/ns1:startperiod</to>
+            </copy>
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/hotelList/ns1:endperiod</to>
+            </copy>
+            <copy>
+                <from>true()</from>
+                <to>$Itinerary/hotelList/ns1:guarantee</to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:StartAirport
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:DestinationAirport
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:liftOffDate
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>sxxf:current-time()</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:liftOffTime
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>sxxf:current-date()</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:landingDate
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>sxxf:current-time()</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:landingTimetim
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/Flight/ns0:carrier
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/airline
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/price
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>0</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/bookingNumber
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to>$Itinerary/flightList[$NumberOfFlights]/flightStatus
+                    <sxed:editor>
+                        <sxed:predicate path="$Itinerary/flightList[$NumberOfFlights]" source="to"/>
+                    </sxed:editor>
+                </to>
+            </copy>-->
+           <copy>
+                <from>true()</from>
+                <to variable="DateCalculatorGetBigDateOperationIn" part="foo"/>
+            </copy>
+            <copy>
+                <from>'unconfirmed'</from>
+                <to>$Itinerary/itineraryStatus</to>
+            </copy>
+        </assign>
+        
+        <invoke name="InvokeDateCalculatorInit" 
+                partnerLink="PartnerLinkCalculatorDate" 
+                operation="DateCalculatorGetBigDateOperation" 
+                xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" 
+                portType="tns:DateCalculatorPortType" 
+                inputVariable="DateCalculatorGetBigDateOperationIn" 
+                outputVariable="DateCalculatorGetBigDateOperationOut"/>
+        
+        <reply name="ReplyCreateItinerary" partnerLink="PartnerLinkTG" operation="createItineraryTravelGoodOperation" xmlns:tns="http://travelGood.wsdl" portType="tns:travelGoodWsdlPortType" variable="CreateItineraryTravelGoodOperationOut">
+            <correlations>
+                <correlation set="ItineraryCorrelation" initiate="yes"/>
+            </correlations>
+        </reply>
+        <scope name="Scope2">
+            <eventHandlers>
+                <onEvent partnerLink="PartnerLinkTG" operation="getItineraryOperation" portType="ns2:travelGoodWsdlPortType" variable="GetItineraryOperationIn" messageType="ns2:getItineraryOperationRequest">
+                    <correlations>
+                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                    </correlations>
+                    <scope name="getitinerary">
+                        <sequence name="Sequence1">
+                            <assign name="setItinerary">
+                                    <copy>
+                                            <from variable="Itinerary"/>
+                                                <to>$GetItineraryOperationOut.getItineraryOutput/itinerary</to>
+                                        </copy>
+                                </assign>
+                                <reply name="ReplyItinerary" partnerLink="PartnerLinkTG" operation="getItineraryOperation" portType="ns2:travelGoodWsdlPortType" variable="GetItineraryOperationOut"/>
+                        </sequence>
+                    </scope>
+                </onEvent>
+            </eventHandlers>
+            <sequence name="Planning">
+                <repeatUntil name="RepeatUntil1" xmlns:tns="urn:LameDuck">
+                    <pick name="PickBig" xmlns:tns="urn:LameDuck">
+                        <onMessage partnerLink="PartnerLinkTG" operation="getFlightTravelGoodOperation" xmlns:tns="http://travelGood.wsdl" portType="tns:travelGoodWsdlPortType" variable="GetFlightTravelGoodOperationIn">
+                                <documentation>getFlights</documentation>
+                                    <correlations>
+                                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="getFlights">
+                                        <assign name="setFlightInput">
+                                                <copy>
+                                                        <from>$GetFlightTravelGoodOperationIn.getFlightInput/flightStartPoint</from>
+                                                            <to variable="GetFlightsLameDuckIn" part="Source"/>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$GetFlightTravelGoodOperationIn.getFlightInput/flightDestinationPoint</from>
+                                                            <to variable="GetFlightsLameDuckIn" part="destination"/>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$GetFlightTravelGoodOperationIn.getFlightInput/flightDate</from>
+                                                            <to variable="GetFlightsLameDuckIn" part="date"/>
+                                                    </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetFlightLameDuck" partnerLink="PartnerLinkLameDuck" operation="getFlights" xmlns:tns="urn:LameDuck" portType="tns:LameDuckPortType" inputVariable="GetFlightsLameDuckIn" outputVariable="GetFlightsLameDuckOut"/>
+                                            <sequence name="IfFlight">
+                                                <assign name="setFlightList">
+                                                        <copy>
+                                                                <from>$GetFlightsLameDuckOut.flightList/ns0:flightInformation</from>
+                                                                    <to>$GetFlightTravelGoodOperationOut.getFlightOutput/ns0:flightInformation</to>
+                                                            </copy>
+                                                    </assign>
+                                                    <reply name="ReplyTravelGood" partnerLink="PartnerLinkTG" operation="getFlightTravelGoodOperation" xmlns:tns="http://travelGood.wsdl" portType="tns:travelGoodWsdlPortType" variable="GetFlightTravelGoodOperationOut"/>
+                                            </sequence>
+                                    </sequence>
+                            </onMessage>
+                            <onMessage partnerLink="PartnerLinkTG" operation="getHotelTravelGoodOperation" xmlns:tns="http://travelGood.wsdl" portType="tns:travelGoodWsdlPortType" variable="GetHotelTravelGoodOperationIn">
+                                <correlations>
+                                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="getHotels">
+                                        <assign name="setHotelInput">
+                                                <copy>
+                                                        <from>$GetHotelTravelGoodOperationIn.getHotelInput/city</from>
+                                                            <to>$GetHotelIn.part1/ns1:city</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$GetHotelTravelGoodOperationIn.getHotelInput/arrivalDate</from>
+                                                            <to>$GetHotelIn.part1/ns1:arrival</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$GetHotelTravelGoodOperationIn.getHotelInput/departureDate</from>
+                                                            <to>$GetHotelIn.part1/ns1:departure</to>
+                                                    </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetHotelNiceview" partnerLink="PartnerLinkNiceView" operation="getHotel" xmlns:tns="urn:NiceView" portType="tns:NiceViewPortType" inputVariable="GetHotelIn" outputVariable="GetHotelOut"/>
+                                            <sequence name="IfHotel">
+                                                <assign name="setHotelList">
+                                                        <copy>
+                                                                <from>$GetHotelOut.part1/ns1:newElement</from>
+                                                                    <to>$GetHotelTravelGoodOperationOut.getHotelOutput/ns1:newElement</to>
+                                                            </copy>
+                                                    </assign>
+                                                    <reply name="ReplyGetHotelTravelGood" partnerLink="PartnerLinkTG" operation="getHotelTravelGoodOperation" portType="tns:travelGoodWsdlPortType" variable="GetHotelTravelGoodOperationOut" xmlns:tns="http://travelGood.wsdl"/>
+                                            </sequence>
+                                    </sequence>
+                            </onMessage>
+                            <onMessage partnerLink="PartnerLinkTG" 
+                           operation="addFlightTravelGoodOperation" 
+                           portType="ns2:travelGoodWsdlPortType" variable="AddFlightTravelGoodOperationIn">
+                                <correlations>
+                                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="addFlights">
+                                        <assign name="incrementFlights">
+                                                <copy>
+                                                        <from>1 + $NumberOfFlights</from>
+                                                            <to variable="NumberOfFlights"/>
+                                                    </copy>
+                                            </assign>
+                                            <assign name="addFlightToIt">
+                                                <copy>
+                                                        <from>true()</from>
+                                                            <to>$AddFlightTravelGoodOperationOut.addFlightOutput/addFlightConfirmation</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/Flight</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$NumberOfFlights]/Flight
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$NumberOfFlights]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/airline</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$NumberOfFlights]/airline
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$NumberOfFlights]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/price</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$NumberOfFlights]/price
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$NumberOfFlights]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/bookingNumber</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$NumberOfFlights]/bookingNumber
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$NumberOfFlights]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>'unconfirmed'</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$NumberOfFlights]/flightStatus
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$NumberOfFlights]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                            </assign>
+                                            <if name="If1">
+                                                <condition>sxxf:date-less-than($AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/Flight/ns0:liftOffDate, $DateCalculatorGetBigDateOperationOut.res)</condition>
+                                                    <assign name="Assign13">
+                                                        <copy>
+                                                                <from>$AddFlightTravelGoodOperationIn.addFlightInput/FlightInfo/Flight/ns0:liftOffDate</from>
+                                                                    <to variable="DateCalculatorGetBigDateOperationOut" part="res"/>
+                                                            </copy>
+                                                    </assign>
+                                            </if>
+                                            <reply name="ReplyAddFlights" partnerLink="PartnerLinkTG" operation="addFlightTravelGoodOperation" portType="ns2:travelGoodWsdlPortType" variable="AddFlightTravelGoodOperationOut"/>
+                                    </sequence>
+                            </onMessage>
+                            <onMessage partnerLink="PartnerLinkTG" operation="bookItineraryTravelGoodOperation" portType="ns2:travelGoodWsdlPortType" variable="BookItineraryTravelGoodOperationIn">
+                                <correlations>
+                                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="Sequence4">
+                                        <scope name="Scope1">
+                                                <variables>
+                                                        <variable name="FaultBookItinerary" messageType="ns2:bookItineraryTravelGoodFault"/>
+                                                    </variables>
+                                                    <faultHandlers>
+                                                        <catchAll>
+                                                                <sequence name="Sequence6">
+                                                                        <compensateScope name="CompensateScopeFlight" target="ScopeBookFlight"/>
+                                                                            <compensateScope name="CompensateScopeHotel" target="ScopeBookHotel"/>
+                                                                            <assign name="AssignFault">
+                                                                                <copy>
+                                                                                        <from>false()</from>
+                                                                                            <to>$BookItineraryTravelGoodOperationOut.bookItineraryOutput/bookingConfirmation</to>
+                                                                                    </copy>
+                                                                                    <copy>
+                                                                                        <from>'itinerary could not be booked'</from>
+                                                                                            <to>$FaultBookItinerary.bookItineraryFault/message</to>
+                                                                                    </copy>
+                                                                                    <copy>
+                                                                                        <from>'unconfirmed'</from>
+                                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                                    </copy>
+                                                                            </assign>
+                                                                            <reply name="ReplyFaultBook" 
+                                               partnerLink="PartnerLinkTG" 
+                                               operation="bookItineraryTravelGoodOperation" 
+                                               portType="ns2:travelGoodWsdlPortType" 
+                                               faultName="ns2:fault5" 
+                                               variable="FaultBookItinerary"/>
+                                                                    </sequence>
+                                                            </catchAll>
+                                                    </faultHandlers>
+                                                    <sequence name="BookItinerary">
+                                                        <assign name="bookingConfirmation">
+                                                                <copy>
+                                                                        <from>'confirmed'</from>
+                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                    </copy>
+                                                            </assign>
+                                                            <forEach name="ForEachBookFlight" parallel="no" counterName="ForEach1Counter">
+                                                                <startCounterValue>1</startCounterValue>
+                                                                    <finalCounterValue>$NumberOfFlights</finalCounterValue>
+                                                                    <scope name="ScopeBookFlight">
+                                                                        <variables>
+                                                                                <variable name="CancelFlightOut" messageType="tns:LameDuckOperationResponse1"/>
+                                                                                    <variable name="CancelFlightIn" messageType="tns:LameDuckOperationRequest1"/>
+                                                                                    <variable name="BookFlightOut" messageType="tns:LameDuckOperationResponse"/>
+                                                                                    <variable name="BookFlightIn" messageType="tns:LameDuckOperationRequest"/>
+                                                                            </variables>
+                                                                            <compensationHandler>
+                                                                                <sequence name="SequenceFaultBookFlight">
+                                                                                        <assign name="AssignFaultBookFlight">
+                                                                                                <copy>
+                                                                                                        <from>'unconfirmed'</from>
+                                                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/bookingNumber
+                                                            <sxed:editor>
+                                                                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                                                                                    </sxed:editor>
+                                                                                                            </from>
+                                                                                                            <to variable="CancelFlightIn" part="bookingnumber1"/>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/price
+                                                            <sxed:editor>
+                                                                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                                                                                    </sxed:editor>
+                                                                                                            </from>
+                                                                                                            <to variable="CancelFlightIn" part="price1"/>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>$BookItineraryTravelGoodOperationIn.bookItineraryInput/creditCardInformation</from>
+                                                                                                            <to variable="CancelFlightIn" part="credircardinfo1"/>
+                                                                                                    </copy>
+                                                                                            </assign>
+                                                                                            <invoke name="InvokeCancelFlight" partnerLink="PartnerLinkLameDuck" operation="cancelFlight" portType="tns:LameDuckPortType" inputVariable="CancelFlightIn" outputVariable="CancelFlightOut"/>
+                                                                                            <assign name="AssignFaultCancelFlight">
+                                                                                                <copy>
+                                                                                                        <from>'unconfirmed'</from>
+                                                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>'cancelled'</from>
+                                                                                                            <to>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/flightStatus
+                                                            <sxed:editor>
+                                                                                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="to"/>
+                                                                                                                    </sxed:editor>
+                                                                                                            </to>
+                                                                                                    </copy>
+                                                                                            </assign>
+                                                                                    </sequence>
+                                                                            </compensationHandler>
+                                                                            <sequence name="bookFlight">
+                                                                                <assign name="setFlight">
+                                                                                        <copy>
+                                                                                                <from>$BookItineraryTravelGoodOperationIn.bookItineraryInput/creditCardInformation</from>
+                                                                                                    <to variable="BookFlightIn" part="creditcard"/>
+                                                                                            </copy>
+                                                                                            <copy>
+                                                                                                <from>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/bookingNumber
+                                                        <sxed:editor>
+                                                                                                                <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                                                                            </sxed:editor>
+                                                                                                    </from>
+                                                                                                    <to variable="BookFlightIn" part="bookingnumber"/>
+                                                                                            </copy>
+                                                                                    </assign>
+                                                                                    <invoke name="InvokeBookFlight" 
+                                                    partnerLink="PartnerLinkLameDuck" 
+                                                    operation="bookFlight" 
+                                                    portType="tns:LameDuckPortType" 
+                                                    inputVariable="BookFlightIn" 
+                                                    outputVariable="BookFlightOut"/>
+                                                                                    <assign name="SetFlightstatusConf">
+                                                                                        <copy>
+                                                                                                <from>'confirmed'</from>
+                                                                                                    <to>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/flightStatus
+                                                        <sxed:editor>
+                                                                                                                <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="to"/>
+                                                                                                            </sxed:editor>
+                                                                                                    </to>
+                                                                                            </copy>
+                                                                                    </assign>
+                                                                            </sequence>
+                                                                    </scope>
+                                                            </forEach>
+                                                            <forEach name="ForEachBookHotel" parallel="no" counterName="ForEach1Counter">
+                                                                <startCounterValue>1</startCounterValue>
+                                                                    <finalCounterValue>$NumberOfHotels</finalCounterValue>
+                                                                    <scope name="ScopeBookHotel">
+                                                                        <variables>
+                                                                                <variable name="CancelHotelOut" messageType="ns4:cancelResponse"/>
+                                                                                    <variable name="CancelHotelIn" messageType="ns4:cancelRequest"/>
+                                                                                    <variable name="BookHotelOut" messageType="ns4:bookResponse"/>
+                                                                                    <variable name="BookHotelIn" messageType="ns4:bookRequest"/>
+                                                                            </variables>
+                                                                            <compensationHandler>
+                                                                                <sequence name="SequenceFaultBookHotel">
+                                                                                        <assign name="AssignFaultBookHotel">
+                                                                                                <copy>
+                                                                                                        <from>'unconfirmed'</from>
+                                                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/ns1:booknumber
+                                                            <sxed:editor>
+                                                                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="from"/>
+                                                                                                                    </sxed:editor>
+                                                                                                            </from>
+                                                                                                            <to variable="CancelHotelIn" part="part1"/>
+                                                                                                    </copy>
+                                                                                            </assign>
+                                                                                            <invoke name="InvokeCancelHotel" partnerLink="PartnerLinkNiceView" operation="cancelHotel" portType="ns4:NiceViewPortType" inputVariable="CancelHotelIn" outputVariable="CancelHotelOut"/>
+                                                                                            <assign name="AssignFaultBookHotelcancel">
+                                                                                                <copy>
+                                                                                                        <from>'unconfirmed'</from>
+                                                                                                            <to>$Itinerary/itineraryStatus</to>
+                                                                                                    </copy>
+                                                                                                    <copy>
+                                                                                                        <from>'cancelled'</from>
+                                                                                                            <to>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/hotelStatus
+                                                            <sxed:editor>
+                                                                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="to"/>
+                                                                                                                    </sxed:editor>
+                                                                                                            </to>
+                                                                                                    </copy>
+                                                                                            </assign>
+                                                                                    </sequence>
+                                                                            </compensationHandler>
+                                                                            <sequence name="bookHotel">
+                                                                                <assign name="setHotel">
+                                                                                        <copy>
+                                                                                                <from>$BookItineraryTravelGoodOperationIn.bookItineraryInput/creditCardInformation</from>
+                                                                                                    <to>$BookHotelIn.part1/ns1:validatecc</to>
+                                                                                            </copy>
+                                                                                            <copy>
+                                                                                                <from>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/ns1:booknumber
+                                                        <sxed:editor>
+                                                                                                                <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="from"/>
+                                                                                                            </sxed:editor>
+                                                                                                    </from>
+                                                                                                    <to>$BookHotelIn.part1/ns1:bookreference</to>
+                                                                                            </copy>
+                                                                                    </assign>
+                                                                                    <invoke name="InvokeBookHotel" 
+                                                    partnerLink="PartnerLinkNiceView" 
+                                                    operation="bookHotel" 
+                                                    portType="ns4:NiceViewPortType" 
+                                                    inputVariable="BookHotelIn" 
+                                                    outputVariable="BookHotelOut"/>
+                                                                                    <assign name="setHotelStatusConf">
+                                                                                        <copy>
+                                                                                                <from>'confirmed'</from>
+                                                                                                    <to>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/hotelStatus
+                                                        <sxed:editor>
+                                                                                                                <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="to"/>
+                                                                                                            </sxed:editor>
+                                                                                                    </to>
+                                                                                            </copy>
+                                                                                    </assign>
+                                                                            </sequence>
+                                                                    </scope>
+                                                            </forEach>
+                                                            <assign name="setResponseBookItinerary">
+                                                                <copy>
+                                                                        <from>$Itinerary/itineraryStatus = 'confirmed'</from>
+                                                                            <to>$BookItineraryTravelGoodOperationOut.bookItineraryOutput/bookingConfirmation</to>
+                                                                    </copy>
+                                                            </assign>
+                                                            <reply name="ReplyBookFlight" partnerLink="PartnerLinkTG" operation="bookItineraryTravelGoodOperation" portType="ns2:travelGoodWsdlPortType" variable="BookItineraryTravelGoodOperationOut"/>
+                                                    </sequence>
+                                            </scope>
+                                    </sequence>
+                            </onMessage>
+                            <onMessage partnerLink="PartnerLinkTG" 
+                           operation="addHotelTravelGoodlOperation" 
+                           portType="ns2:travelGoodWsdlPortType" 
+                           variable="AddHotelTravelGoodlOperationIn">
+                                <correlations>
+                                        <correlation set="ItineraryCorrelation" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="addHotels">
+                                        <assign name="incrementHotels">
+                                                <copy>
+                                                        <from>1 + $NumberOfHotels</from>
+                                                            <to variable="NumberOfHotels"/>
+                                                    </copy>
+                                            </assign>
+                                            <assign name="addHotelToIt">
+                                                <copy>
+                                                        <from>true()</from>
+                                                            <to>$AddHotelTravelGoodlOperationOut.addHotelOutput/addHotelConfirmation</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:name</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:name
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:booknumber</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:booknumber
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:city</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:city
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:ReservationService</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:ReservationService
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:price</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:price
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:guarantee</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:guarantee
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:address</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:address
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:startperiod</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:startperiod
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:endperiod</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/ns1:endperiod
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>'unconfirmed'</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]/hotelStatus
+                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$NumberOfHotels]" source="to"/>
+                                                                    </sxed:editor>
+                                                            </to>
+                                                    </copy>
+                                            </assign>
+                                            <if name="If2">
+                                                <condition>sxxf:date-less-than($AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:startperiod, $DateCalculatorGetBigDateOperationOut.res)</condition>
+                                                    <assign name="Assign14">
+                                                        <copy>
+                                                                <from>$AddHotelTravelGoodlOperationIn.addHotelInput/HotelInfo/ns1:startperiod</from>
+                                                                    <to variable="DateCalculatorGetBigDateOperationOut" part="res"/>
+                                                            </copy>
+                                                    </assign>
+                                            </if>
+                                            <reply name="ReplyAddHotels" 
+                               partnerLink="PartnerLinkTG" 
+                               operation="addHotelTravelGoodlOperation" 
+                               portType="ns2:travelGoodWsdlPortType" 
+                               variable="AddHotelTravelGoodlOperationOut"/>
+                                    </sequence>
+                            </onMessage>
+                    </pick>
+                        <condition>'confirmed' = $Itinerary/itineraryStatus</condition>
+                </repeatUntil>
+                <sequence name="Cancelling">
+                    <assign name="Assign1">
+                            <copy>
+                                    <from>false()</from>
+                                        <to variable="finishProcess"/>
+                                </copy>
+                                <copy>
+                                    <from variable="DateCalculatorGetBigDateOperationOut" part="res"/>
+                                        <to variable="DateCalculatorOperationIn1" part="part1"/>
+                                </copy>
+                        </assign>
+            <invoke name="Invoke3" partnerLink="PartnerLinkCalculatorDate" operation="DateCalculatorOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" portType="tns:DateCalculatorPortType" inputVariable="DateCalculatorOperationIn1" outputVariable="DateCalculatorOperationOut1"/>
+          
+                        <repeatUntil name="RepeatUntil2">
+                            <pick name="Pick2">
+                    <onMessage partnerLink="PartnerLinkTG" operation="cancelItineraryOperation" portType="ns2:travelGoodWsdlPortType" variable="CancelItineraryOperationIn">
+                        <correlations>
+                            <correlation set="ItineraryCorrelation" initiate="no"/>
+                        </correlations>
+                        <sequence name="Sequence8">
+                            <assign name="Assign2">
+                                <copy>
+                                    <from>false()</from>
+                                    <to variable="errorCanceling"/>
+                                </copy>
+                            </assign>
+                            <if name="IfItineraryisConfirmed">
+                                <condition>'confirmed' = $Itinerary/itineraryStatus</condition>
+                                <sequence name="Sequence10">
+                                    <forEach name="ForEachFlight" parallel="no" counterName="ForEach1Counter" xmlns:tns="urn:LameDuck">
+                                        <startCounterValue>1</startCounterValue>
+                                        <finalCounterValue>$NumberOfFlights</finalCounterValue>
+                                        <scope name="Cancellingflights">
+                                            <variables>
+                                                <variable name="CancelFlightOut" xmlns:tns="urn:LameDuck" messageType="tns:LameDuckOperationResponse1"/>
+                                                <variable name="CancelFlightIn" xmlns:tns="urn:LameDuck" messageType="tns:LameDuckOperationRequest1"/>
+                                            </variables>
+                                            <faultHandlers>
+                                                <catch faultName="tns:cancelflightfault">
+                                                    <assign name="Assign5">
+                                                        <copy>
+                                                            <from>true()</from>
+                                                            <to variable="errorCanceling"/>
+                                                        </copy>
+                                                    </assign>
+                                                </catch>
+                                            </faultHandlers>
+                                            <if name="IfFlightisConfirmed">
+                                                <condition>'confirmed' = $Itinerary/flightListRoot/flightList[$ForEach1Counter]/flightStatus
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                    </sxed:editor>
+                                                </condition>
+                                                <sequence name="Sequence9">
+                                                    <assign name="Assign4">
+                                                        
+                                                        <copy>
+                                                            <from>$CancelItineraryOperationIn.cancelInput/creditcard</from>
+                                                            <to variable="CancelFlightIn" part="credircardinfo1"/>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/bookingNumber
+                                                                <sxed:editor>
+                                                                    <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                                </sxed:editor>
+                                                            </from>
+                                                            <to variable="CancelFlightIn" part="bookingnumber1"/>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/price
+                                                                <sxed:editor>
+                                                                    <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="from"/>
+                                                                </sxed:editor>
+                                                            </from>
+                                                            <to variable="CancelFlightIn" part="price1"/>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="Invoke1" partnerLink="PartnerLinkLameDuck" operation="cancelFlight" xmlns:tns="urn:LameDuck" portType="tns:LameDuckPortType" inputVariable="CancelFlightIn" outputVariable="CancelFlightOut"/>
+                                                    <assign name="Assign3">
+                                                        <copy>
+                                                            <from>'cancelled'</from>
+                                                            <to>$Itinerary/flightListRoot/flightList[$ForEach1Counter]/flightStatus
+                                                                <sxed:editor>
+                                                                    <sxed:predicate path="$Itinerary/flightListRoot/flightList[$ForEach1Counter]" source="to"/>
+                                                                </sxed:editor>
+                                                            </to>
+                                                        </copy>
+                                                    </assign>
+                                                </sequence>
+                                            </if>
+                                        </scope>
+                                    </forEach>
+                                    <forEach name="ForEachHotel" parallel="no" counterName="ForEach1Counter">
+                                        <startCounterValue>1</startCounterValue>
+                                        <finalCounterValue>$NumberOfHotels</finalCounterValue>
+                                        <scope name="cancellinghotels">
+                                            <variables>
+                                                <variable name="CancelHotelOut" messageType="ns4:cancelResponse"/>
+                                                <variable name="CancelHotelIn" messageType="ns4:cancelRequest"/>
+                                            </variables>
+                                            <faultHandlers>
+                                                <catch faultName="ns4:fault1">
+                                                    <assign name="Assign8">
+                                                        <copy>
+                                                            <from>true()</from>
+                                                            <to variable="errorCanceling"/>
+                                                        </copy>
+                                                    </assign>
+                                                </catch>
+                                            </faultHandlers>
+                                            <if name="IfHotelisConfirmed">
+                                                <condition>'confirmed' = $Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/hotelStatus
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="from"/>
+                                                    </sxed:editor>
+                                                </condition>
+                                                <sequence name="Sequence11">
+                                                    <assign name="Assign6">
+                                                        <copy>
+                                                            <from>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/ns1:booknumber
+                                                                <sxed:editor>
+                                                                    <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="from"/>
+                                                                </sxed:editor>
+                                                            </from>
+                                                            <to variable="CancelHotelIn" part="part1"/>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="Invoke2" partnerLink="PartnerLinkNiceView" operation="cancelHotel" portType="ns4:NiceViewPortType" inputVariable="CancelHotelIn" outputVariable="CancelHotelOut"/>
+                                                    <assign name="Assign7">
+                                                        <copy>
+                                                            <from>'cancelled'</from>
+                                                            <to>$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]/hotelStatus
+                                                                <sxed:editor>
+                                                                    <sxed:predicate path="$Itinerary/hotelListRoot/hotelList[$ForEach1Counter]" source="to"/>
+                                                                </sxed:editor>
+                                                            </to>
+                                                        </copy>
+                                                    </assign>
+                                                </sequence>
+                                            </if>
+                                        </scope>
+                                    </forEach>
+                                    <if name="IfTherewasanerror">
+                                        <condition>$errorCanceling</condition>
+                                        <sequence name="Sequence13">
+                                            <assign name="Assign10">
+                                                <copy>
+                                                   <from>'error cancelling, please check your itinerary'</from>
+                                                   <to variable="Fault8FaultVar1" part="cancelFault"/>
+                                                </copy>
+                                            </assign>
+                                            <reply name="Reply2" partnerLink="PartnerLinkTG" operation="cancelItineraryOperation" portType="ns2:travelGoodWsdlPortType" faultName="ns2:fault8" variable="Fault8FaultVar1"/>
+                                        </sequence>
+                                        <else>
+                                            <sequence name="Sequence14">
+                                                <assign name="Assign11">
+                                                    <copy>
+                                                        <from>true()</from>
+                                                        <to variable="CancelItineraryOperationOut" part="cancelOutput"/>
+                                                    </copy>
+                                                </assign>
+                                                <reply name="Reply3" partnerLink="PartnerLinkTG" operation="cancelItineraryOperation" portType="ns2:travelGoodWsdlPortType" variable="CancelItineraryOperationOut"/>
+                                                <assign name="Assign12">
+                                                    <copy>
+                                                        <from>'cancelled'</from>
+                                                        <to>$Itinerary/itineraryStatus</to>
+                                                    </copy>
+                                                </assign>
+                                            </sequence>
+                                        </else>
+                                    </if>
+                                </sequence>
+                                <else>
+                                    <sequence name="Sequence12">
+                                        <assign name="Assign9">
+                                            <copy>
+                                                <from>'already cancelled'</from>
+                                                <to variable="Fault8FaultVar" part="cancelFault"/>
+                                            </copy>
+                                        </assign>
+                                        <reply name="Reply1" partnerLink="PartnerLinkTG" operation="cancelItineraryOperation" portType="ns2:travelGoodWsdlPortType" faultName="ns2:fault8" variable="Fault8FaultVar"/>
+                                    </sequence>
+                                </else>
+                            </if>
+                        </sequence>
+                    </onMessage>
+                    <onAlarm>
+                        <for>$DateCalculatorOperationOut1.outdate</for>
+                        <assign name="Assign16">
+                            <copy>
+                                <from>true()</from>
+                                <to variable="finishProcess"/>
+                            </copy>
+                        </assign>
+                    </onAlarm>
+                                </pick>
+                                <condition>$finishProcess</condition>
+                        </repeatUntil>
+                </sequence>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

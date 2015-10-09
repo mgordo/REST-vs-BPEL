@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:LameDuck" xmlns:ns2="http://j2ee.netbeans.org/wsdl/DateCalculator/java/DateCalculator" xmlns:ns3="urn:NiceView" xmlns:ns4="http://travelGood.wsdl" xmlns:ns5="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="LameDuckPortTypeBindingPort" interface-name="ns1:LameDuckPortType" name="endpoint1" service-name="ns1:LameDuckService"/>
+        <endpoint endpoint-name="DateCalculatorPortTypeService" interface-name="ns2:DateCalculatorPortType" name="endpoint2" service-name="ns2:DateCalculatorService"/>
+        <endpoint endpoint-name="NiceViewPortTypeBindingPort" interface-name="ns3:NiceViewPortType" name="endpoint3" service-name="ns3:NiceViewService"/>
+        <endpoint endpoint-name="travelGoodWsdlPortTypeBindingPort" interface-name="ns4:travelGoodWsdlPortType" name="endpoint4" service-name="ns4:travelGoodWsdlService"/>
+        <endpoint display-name="PartnerLinkTG" endpoint-name="travelGoodWsdlRole_myRole" file-path="travelGoodBpelModule.bpel" interface-name="ns4:travelGoodWsdlPortType" name="endpoint5" process-name="travelGoodBpelModule" service-name="ns5:PartnerLinkTG"/>
+        <endpoint display-name="PartnerLinkLameDuck" endpoint-name="role1_partnerRole" file-path="travelGoodBpelModule.bpel" interface-name="ns1:LameDuckPortType" name="endpoint6" process-name="travelGoodBpelModule" service-name="ns5:PartnerLinkLameDuck"/>
+        <endpoint display-name="PartnerLinkNiceView" endpoint-name="NiceViewPortTypeRole_partnerRole" file-path="travelGoodBpelModule.bpel" interface-name="ns3:NiceViewPortType" name="endpoint7" process-name="travelGoodBpelModule" service-name="ns5:PartnerLinkNiceView"/>
+        <endpoint display-name="PartnerLinkCalculatorDate" endpoint-name="DateCalculatorPortTypeRole_partnerRole" file-path="travelGoodBpelModule.bpel" interface-name="ns2:DateCalculatorPortType" name="endpoint8" process-name="travelGoodBpelModule" service-name="ns5:PartnerLinkCalculatorDate"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="TravelGoodBpelModule.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodCompositeApp-TravelGoodBpelModule" unit-name="TravelGoodBpelModule" unknown="false" x="66" y="99">
+            <provides endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+            <consumes endpoint="endpoint7"/>
+            <consumes endpoint="endpoint8"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="TravelGoodCompositeApp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="276">
+                    <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/DateCalculator/DateCalculatorService.wsdl#xpointer(/definitions/service[@name='DateCalculatorService']/port[@name='DateCalculatorPortTypeService'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/service[@name='LameDuckService']/port[@name='LameDuckPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/service[@name='NiceViewService']/port[@name='NiceViewPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/travelGoodWsdl.wsdl#xpointer(/definitions/service[@name='travelGoodWsdlService']/port[@name='travelGoodWsdlPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint6" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint4" provider="endpoint5" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/DateCalculator/DateCalculatorService.wsdl#xpointer(/definitions/portType[@name='DateCalculatorPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/portType[@name='LameDuckPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/portType[@name='NiceViewPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/travelGoodWsdl.wsdl#xpointer(/definitions/portType[@name='travelGoodWsdlPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/DateCalculator/DateCalculatorService.wsdl#xpointer(/definitions/binding[@name='DateCalculatorPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/binding[@name='LameDuckPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/binding[@name='NiceViewPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/travelGoodWsdl.wsdl#xpointer(/definitions/binding[@name='travelGoodWsdlPortTypeBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/DateCalculator/DateCalculatorService.wsdl#xpointer(/definitions/service[@name='DateCalculatorService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/LameDuck/LameDuckService.wsdl#xpointer(/definitions/service[@name='LameDuckService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/localhost_8080/NiceView/NiceViewService.wsdl#xpointer(/definitions/service[@name='NiceViewService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGoodBpelModule/travelGoodWsdl.wsdl#xpointer(/definitions/service[@name='travelGoodWsdlService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="380"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-LameDuckService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        <property name="wsdl-LameDuckService" location="xml-resources/web-service-references/LameDuckService/wsdl/localhost_8080/LameDuck/LameDuckService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LameDuckService" destdir="${build.generated.dir}/jax-wsCache/LameDuckService" wsdl="${wsdl-LameDuckService}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/LameDuck/LameDuckService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-LameDuckService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/LameDuckService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-LameDuckService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/LameDuckService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/lameduck"/>
+    </target>
+    <target name="wsimport-client-NiceViewService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+        <property name="wsdl-NiceViewService" location="xml-resources/web-service-references/NiceViewService/wsdl/localhost_8080/NiceView/NiceViewService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NiceViewService" destdir="${build.generated.dir}/jax-wsCache/NiceViewService" wsdl="${wsdl-NiceViewService}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/NiceView/NiceViewService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-NiceViewService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NiceViewService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NiceViewService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NiceViewService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/niceview"/>
+    </target>
+    <target name="wsimport-client-BankService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BankService"/>
+        <property name="wsdl-BankService" location="xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BankService" destdir="${build.generated.dir}/jax-wsCache/BankService" wsdl="${wsdl-BankService}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-BankService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BankService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BankService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BankService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/BankService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/dk/dtu/imm/fastmoney"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-LameDuckService, wsimport-client-NiceViewService, wsimport-client-BankService"/>
+</project>

@@ -1,0 +1,4 @@
+Bundle-Name: TravelGoodCompositeApp
+Bundle-SymbolicName: TravelGoodCompositeApp
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/TravelGoodBpelModule/travelGoodBpelModule" xmlns:ns2="urn:LameDuck" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TravelGoodBpel/src/TravelGoodWSDL" version="1.0">
+    <services binding-component="true">
+        <provides endpoint-name="LameDuckPortTypeBindingPort" interface-name="ns2:LameDuckPortType" service-name="ns2:LameDuckService"/>
+        <consumes endpoint-name="port" interface-name="ns3:TravelGoodWSDLPortType" service-name="ns3:TravelGoodWSDLService"/>
+    </services>
+</jbi>

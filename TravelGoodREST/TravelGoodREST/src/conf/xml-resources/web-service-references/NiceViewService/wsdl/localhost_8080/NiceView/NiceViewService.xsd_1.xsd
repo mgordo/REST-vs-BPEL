@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.1.1 (branches/2.1-6844; 2011-07-29T12:07:24+0000) JAXWS-RI/2.2.5 JAXWS/2.2. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xml.netbeans.org/schema/hotelschema" xmlns:ns="urn://types.fastmoney.imm.dtu.dk" targetNamespace="http://xml.netbeans.org/schema/hotelschema" elementFormDefault="qualified">
+    
+    <xsd:import namespace="urn://types.fastmoney.imm.dtu.dk" schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1"/>
+    <xsd:complexType name="Hotel">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string"/>
+                    <xsd:element name="booknumber" type="xsd:int"/>
+                    <xsd:element name="city" type="xsd:string"/>
+                    <xsd:element name="ReservationService" type="xsd:string"/>
+                    <xsd:element name="price" type="xsd:double"/>
+                    <xsd:element name="guarantee" type="xsd:boolean"/>
+                    <xsd:element name="address" type="xsd:string"/>
+                    <xsd:element name="startperiod" type="xsd:date"/>
+                    <xsd:element name="endperiod" type="xsd:date"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="bookarg">
+                <xsd:sequence>
+                    <xsd:element name="bookreference" type="xsd:int"/>
+                    <xsd:element name="validatecc" type="ns:creditCardInfoType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="hotellist">
+                <xsd:sequence>
+                    <xsd:element name="newElement" type="tns:Hotel" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="get">
+                    <xsd:sequence>
+                        <xsd:element name="city" type="xsd:string"/>
+                        <xsd:element name="arrival" type="xsd:date"/>
+                        <xsd:element name="departure" type="xsd:date"/>
+                    </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getelement" type="tns:get"/>
+            
+            <xsd:element name="cancelreq" type="xsd:int"/>
+            <xsd:element name="stringfault" type="xsd:string"/>
+            <xsd:element name="bookargelement" type="tns:bookarg"/>
+            <xsd:element name="hotelelement" type="tns:Hotel"/>
+            <xsd:element name="hotellistelement" type="tns:hotellist"/>
+            <xsd:element name="bookreply" type="xsd:boolean"/>
+            
+</xsd:schema>

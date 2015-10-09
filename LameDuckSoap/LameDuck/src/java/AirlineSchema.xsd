@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author Diego Gonzalez -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xml.netbeans.org/schema/AirlineSchema"
+    xmlns:tns="http://xml.netbeans.org/schema/AirlineSchema"
+    
+    elementFormDefault="qualified">
+    <xsd:complexType name="FlightList">
+                <xsd:sequence>
+                    <xsd:element name="flightInformation" maxOccurs="unbounded" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="bookingNumber" type="xsd:int"></xsd:element>
+                                <xsd:element name="price" type="xsd:int"></xsd:element>
+                                <xsd:element name="airline" type="xsd:string"></xsd:element>
+                                <xsd:element name="Flight" type="tns:flight"></xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="flight">
+                <xsd:sequence>
+                    <xsd:element name="StartAirport" type="xsd:string"></xsd:element>
+                    <xsd:element name="DestinationAirport" type="xsd:string"></xsd:element>
+                    <xsd:element name="liftOffDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="liftOffTime" type="xsd:time"></xsd:element>
+                    <xsd:element name="landingDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="landingTimetim" type="xsd:time"></xsd:element>
+                        <xsd:element name="carrier" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+    <xsd:complexType name="bookFlightFaultType">
+        <xsd:sequence>
+            <xsd:element name="description" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="bookFlightFaultElement" type="tns:bookFlightFaultType"></xsd:element>
+</xsd:schema>

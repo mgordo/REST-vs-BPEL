@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inspection xmlns="http://schemas.xmlsoap.org/ws/2001/10/inspection/">
+            
+    <service>
+        <name>TravelGood</name>
+        <abstract>Planning and booking services provided by The TravelGood agency</abstract>
+        <description referencedNamespace="http://schemas.xmlsoap.org/wsdl/"
+                 location="http://localhost:9080/service?wsdl"/>
+    </service>
+    
+    <link referencedNamespace="http://schemas.xmlsoap.org/ws/2001/10/inspection/" 
+          location="http://localhost:8080/NiceView/inspection.wsil" >
+      <abstract>Hotel registration company</abstract>
+    </link>    
+    
+    <link referencedNamespace="http://schemas.xmlsoap.org/ws/2001/10/inspection/" 
+          location="http://localhost:8080/LameDuck/inspection.wsil" >
+      <abstract>Flight registration company</abstract>
+    </link>
+         
+</inspection>
